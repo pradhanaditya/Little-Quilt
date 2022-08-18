@@ -1,0 +1,767 @@
+Grammar
+
+    0 $accept: Start $end
+
+    1 Start: Expression
+
+    2 Expression: TURN LEFT_BRACKET Expression RIGHT_BRACKET
+    3           | SEW LEFT_BRACKET Expression COMMA Expression RIGHT_BRACKET
+    4           | HDROW LEFT_BRACKET Expression RIGHT_BRACKET
+    5           | TLROW LEFT_BRACKET Expression RIGHT_BRACKET
+    6           | HDCOL LEFT_BRACKET Expression RIGHT_BRACKET
+    7           | TLCOL LEFT_BRACKET Expression RIGHT_BRACKET
+
+    8 $@1: %empty
+
+    9 $@2: %empty
+
+   10 Expression: LET $@1 Declarations IN Expression $@2 END
+
+   11 $@3: %empty
+
+   12 Expression: NAME $@3 LEFT_BRACKET Actuals RIGHT_BRACKET
+
+   13 $@4: %empty
+
+   14 Expression: NAME $@4
+   15           | A
+   16           | B
+
+   17 Declarations: Declaration Declarations
+   18             | Declaration
+
+   19 $@5: %empty
+
+   20 $@6: %empty
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS Expression
+
+   22 $@7: %empty
+
+   23 Declaration: VAL NAME EQUALS $@7 Expression
+
+   24 $@8: %empty
+
+   25 Formals: NAME $@8 COMMA Formals
+   26        | NAME
+
+   27 Actuals: Expression COMMA Actuals
+   28        | Expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+A (258) 15
+B (259) 16
+LEFT_BRACKET (260) 2 3 4 5 6 7 12 21
+RIGHT_BRACKET (261) 2 3 4 5 6 7 12 21
+TURN (262) 2
+SEW (263) 3
+COMMA (264) 3 25 27
+HDROW (265) 4
+TLROW (266) 5
+HDCOL (267) 6
+TLCOL (268) 7
+LET (269) 10
+IN (270) 10
+END (271) 10
+FUN (272) 21
+VAL (273) 23
+EQUALS (274) 21 23
+NAME (275) 12 14 21 23 25 26
+
+
+Nonterminals, with rules where they appear
+
+$accept (21)
+    on left: 0
+Start (22)
+    on left: 1, on right: 0
+Expression (23)
+    on left: 2 3 4 5 6 7 10 12 14 15 16, on right: 1 2 3 4 5 6 7 10
+    21 23 27 28
+$@1 (24)
+    on left: 8, on right: 10
+$@2 (25)
+    on left: 9, on right: 10
+$@3 (26)
+    on left: 11, on right: 12
+$@4 (27)
+    on left: 13, on right: 14
+Declarations (28)
+    on left: 17 18, on right: 10 17
+Declaration (29)
+    on left: 21 23, on right: 17 18
+$@5 (30)
+    on left: 19, on right: 21
+$@6 (31)
+    on left: 20, on right: 21
+$@7 (32)
+    on left: 22, on right: 23
+Formals (33)
+    on left: 25 26, on right: 21 25
+$@8 (34)
+    on left: 24, on right: 25
+Actuals (35)
+    on left: 27 28, on right: 12 27
+
+
+State 0
+
+    0 $accept: . Start $end
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Start       go to state 11
+    Expression  go to state 12
+
+
+State 1
+
+   15 Expression: A .
+
+    $default  reduce using rule 15 (Expression)
+
+
+State 2
+
+   16 Expression: B .
+
+    $default  reduce using rule 16 (Expression)
+
+
+State 3
+
+    2 Expression: TURN . LEFT_BRACKET Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 13
+
+
+State 4
+
+    3 Expression: SEW . LEFT_BRACKET Expression COMMA Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 14
+
+
+State 5
+
+    4 Expression: HDROW . LEFT_BRACKET Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 15
+
+
+State 6
+
+    5 Expression: TLROW . LEFT_BRACKET Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 16
+
+
+State 7
+
+    6 Expression: HDCOL . LEFT_BRACKET Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 17
+
+
+State 8
+
+    7 Expression: TLCOL . LEFT_BRACKET Expression RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 18
+
+
+State 9
+
+   10 Expression: LET . $@1 Declarations IN Expression $@2 END
+
+    $default  reduce using rule 8 ($@1)
+
+    $@1  go to state 19
+
+
+State 10
+
+   12 Expression: NAME . $@3 LEFT_BRACKET Actuals RIGHT_BRACKET
+   14           | NAME . $@4
+
+    LEFT_BRACKET  reduce using rule 11 ($@3)
+    $default      reduce using rule 13 ($@4)
+
+    $@3  go to state 20
+    $@4  go to state 21
+
+
+State 11
+
+    0 $accept: Start . $end
+
+    $end  shift, and go to state 22
+
+
+State 12
+
+    1 Start: Expression .
+
+    $default  reduce using rule 1 (Start)
+
+
+State 13
+
+    2 Expression: TURN LEFT_BRACKET . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 23
+
+
+State 14
+
+    3 Expression: SEW LEFT_BRACKET . Expression COMMA Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 24
+
+
+State 15
+
+    4 Expression: HDROW LEFT_BRACKET . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 25
+
+
+State 16
+
+    5 Expression: TLROW LEFT_BRACKET . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 26
+
+
+State 17
+
+    6 Expression: HDCOL LEFT_BRACKET . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 27
+
+
+State 18
+
+    7 Expression: TLCOL LEFT_BRACKET . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 28
+
+
+State 19
+
+   10 Expression: LET $@1 . Declarations IN Expression $@2 END
+
+    FUN  shift, and go to state 29
+    VAL  shift, and go to state 30
+
+    Declarations  go to state 31
+    Declaration   go to state 32
+
+
+State 20
+
+   12 Expression: NAME $@3 . LEFT_BRACKET Actuals RIGHT_BRACKET
+
+    LEFT_BRACKET  shift, and go to state 33
+
+
+State 21
+
+   14 Expression: NAME $@4 .
+
+    $default  reduce using rule 14 (Expression)
+
+
+State 22
+
+    0 $accept: Start $end .
+
+    $default  accept
+
+
+State 23
+
+    2 Expression: TURN LEFT_BRACKET Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 34
+
+
+State 24
+
+    3 Expression: SEW LEFT_BRACKET Expression . COMMA Expression RIGHT_BRACKET
+
+    COMMA  shift, and go to state 35
+
+
+State 25
+
+    4 Expression: HDROW LEFT_BRACKET Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 36
+
+
+State 26
+
+    5 Expression: TLROW LEFT_BRACKET Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 37
+
+
+State 27
+
+    6 Expression: HDCOL LEFT_BRACKET Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 38
+
+
+State 28
+
+    7 Expression: TLCOL LEFT_BRACKET Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 39
+
+
+State 29
+
+   21 Declaration: FUN . NAME $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS Expression
+
+    NAME  shift, and go to state 40
+
+
+State 30
+
+   23 Declaration: VAL . NAME EQUALS $@7 Expression
+
+    NAME  shift, and go to state 41
+
+
+State 31
+
+   10 Expression: LET $@1 Declarations . IN Expression $@2 END
+
+    IN  shift, and go to state 42
+
+
+State 32
+
+   17 Declarations: Declaration . Declarations
+   18             | Declaration .
+
+    FUN  shift, and go to state 29
+    VAL  shift, and go to state 30
+
+    $default  reduce using rule 18 (Declarations)
+
+    Declarations  go to state 43
+    Declaration   go to state 32
+
+
+State 33
+
+   12 Expression: NAME $@3 LEFT_BRACKET . Actuals RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 44
+    Actuals     go to state 45
+
+
+State 34
+
+    2 Expression: TURN LEFT_BRACKET Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 2 (Expression)
+
+
+State 35
+
+    3 Expression: SEW LEFT_BRACKET Expression COMMA . Expression RIGHT_BRACKET
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 46
+
+
+State 36
+
+    4 Expression: HDROW LEFT_BRACKET Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 4 (Expression)
+
+
+State 37
+
+    5 Expression: TLROW LEFT_BRACKET Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 5 (Expression)
+
+
+State 38
+
+    6 Expression: HDCOL LEFT_BRACKET Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 6 (Expression)
+
+
+State 39
+
+    7 Expression: TLCOL LEFT_BRACKET Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 7 (Expression)
+
+
+State 40
+
+   21 Declaration: FUN NAME . $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS Expression
+
+    $default  reduce using rule 19 ($@5)
+
+    $@5  go to state 47
+
+
+State 41
+
+   23 Declaration: VAL NAME . EQUALS $@7 Expression
+
+    EQUALS  shift, and go to state 48
+
+
+State 42
+
+   10 Expression: LET $@1 Declarations IN . Expression $@2 END
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 49
+
+
+State 43
+
+   17 Declarations: Declaration Declarations .
+
+    $default  reduce using rule 17 (Declarations)
+
+
+State 44
+
+   27 Actuals: Expression . COMMA Actuals
+   28        | Expression .
+
+    COMMA  shift, and go to state 50
+
+    $default  reduce using rule 28 (Actuals)
+
+
+State 45
+
+   12 Expression: NAME $@3 LEFT_BRACKET Actuals . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 51
+
+
+State 46
+
+    3 Expression: SEW LEFT_BRACKET Expression COMMA Expression . RIGHT_BRACKET
+
+    RIGHT_BRACKET  shift, and go to state 52
+
+
+State 47
+
+   21 Declaration: FUN NAME $@5 . LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS Expression
+
+    LEFT_BRACKET  shift, and go to state 53
+
+
+State 48
+
+   23 Declaration: VAL NAME EQUALS . $@7 Expression
+
+    $default  reduce using rule 22 ($@7)
+
+    $@7  go to state 54
+
+
+State 49
+
+   10 Expression: LET $@1 Declarations IN Expression . $@2 END
+
+    $default  reduce using rule 9 ($@2)
+
+    $@2  go to state 55
+
+
+State 50
+
+   27 Actuals: Expression COMMA . Actuals
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 44
+    Actuals     go to state 56
+
+
+State 51
+
+   12 Expression: NAME $@3 LEFT_BRACKET Actuals RIGHT_BRACKET .
+
+    $default  reduce using rule 12 (Expression)
+
+
+State 52
+
+    3 Expression: SEW LEFT_BRACKET Expression COMMA Expression RIGHT_BRACKET .
+
+    $default  reduce using rule 3 (Expression)
+
+
+State 53
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET . $@6 Formals RIGHT_BRACKET EQUALS Expression
+
+    $default  reduce using rule 20 ($@6)
+
+    $@6  go to state 57
+
+
+State 54
+
+   23 Declaration: VAL NAME EQUALS $@7 . Expression
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 58
+
+
+State 55
+
+   10 Expression: LET $@1 Declarations IN Expression $@2 . END
+
+    END  shift, and go to state 59
+
+
+State 56
+
+   27 Actuals: Expression COMMA Actuals .
+
+    $default  reduce using rule 27 (Actuals)
+
+
+State 57
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 . Formals RIGHT_BRACKET EQUALS Expression
+
+    NAME  shift, and go to state 60
+
+    Formals  go to state 61
+
+
+State 58
+
+   23 Declaration: VAL NAME EQUALS $@7 Expression .
+
+    $default  reduce using rule 23 (Declaration)
+
+
+State 59
+
+   10 Expression: LET $@1 Declarations IN Expression $@2 END .
+
+    $default  reduce using rule 10 (Expression)
+
+
+State 60
+
+   25 Formals: NAME . $@8 COMMA Formals
+   26        | NAME .
+
+    RIGHT_BRACKET  reduce using rule 26 (Formals)
+    $default       reduce using rule 24 ($@8)
+
+    $@8  go to state 62
+
+
+State 61
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 Formals . RIGHT_BRACKET EQUALS Expression
+
+    RIGHT_BRACKET  shift, and go to state 63
+
+
+State 62
+
+   25 Formals: NAME $@8 . COMMA Formals
+
+    COMMA  shift, and go to state 64
+
+
+State 63
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET . EQUALS Expression
+
+    EQUALS  shift, and go to state 65
+
+
+State 64
+
+   25 Formals: NAME $@8 COMMA . Formals
+
+    NAME  shift, and go to state 60
+
+    Formals  go to state 66
+
+
+State 65
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS . Expression
+
+    A      shift, and go to state 1
+    B      shift, and go to state 2
+    TURN   shift, and go to state 3
+    SEW    shift, and go to state 4
+    HDROW  shift, and go to state 5
+    TLROW  shift, and go to state 6
+    HDCOL  shift, and go to state 7
+    TLCOL  shift, and go to state 8
+    LET    shift, and go to state 9
+    NAME   shift, and go to state 10
+
+    Expression  go to state 67
+
+
+State 66
+
+   25 Formals: NAME $@8 COMMA Formals .
+
+    $default  reduce using rule 25 (Formals)
+
+
+State 67
+
+   21 Declaration: FUN NAME $@5 LEFT_BRACKET $@6 Formals RIGHT_BRACKET EQUALS Expression .
+
+    $default  reduce using rule 21 (Declaration)
